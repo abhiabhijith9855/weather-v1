@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>whether</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div id="insideBox">
+                <h1>Whether Today</h1>
+                <input id="userInput" type="text" placeholder="Contry">
+                <button onclick="getcontrydetails()">Serch</button>
+            <div id="result">
+                   
+            </div>
+            </div>
+
+           
+        </div>
+    </div>
+    
+</body>
+<script>
+    const getcontrydetails = async ()=>{
+       if(userInput.value){
+             const responce =await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${userInput.value}&appid=6f4acc5febfbbbe8dcef4e89dd3dbcc9`)
+          
+             console.log(responce);
+             
+             if(responce.status==200){
+                const contryDetails = await responce.json()
+                console.log(contryDetails);
+                
+                result.innerHTML=` <h1> ${userInput.value}</h1>
+                    <ul class="listItems">
+                       
+                        <li>Temperature :${contryDetails.main.temp}</li>
+                        <li>Humdidty:${contryDetails.main.humidity}</li>
+                        <li>pressure:${contryDetails.main.pressure}</li>
+                        <li>wind speed:${contryDetails.wind.speed}</li>
+                        
+                    </ul>
+                  
+                   
+                       
+                    `
+             }else{
+                    alert("plese enter valid contry")
+                
+             }
+            
+       }else{
+        alert("plese enter place")
+       }
+         
+    }
+</script>
+</html>
